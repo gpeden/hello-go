@@ -18,7 +18,7 @@ type (
 func main() {
 	router := httprouter.New()
 	router.GET("/", HelloHandler)
-	router.GET("/quote", QuoteHandler)
+	router.GET("/quote/:id", QuoteHandler)
 	fmt.Println("listening...")
 
 	http.Handle("/", router)
