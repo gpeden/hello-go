@@ -8,13 +8,6 @@ import (
 	"os"
 )
 
-type (
-	Quote struct {
-		Quote string `json:"quote"`
-		Id    string `json:"id"`
-	}
-)
-
 func main() {
 	router := httprouter.New()
 	router.GET("/", HelloHandler)
