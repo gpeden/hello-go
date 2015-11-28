@@ -1,16 +1,24 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/gpeden/hello-go/Godeps/_workspace/src/github.com/gorilla/mux"
+	"github.com/gpeden/hello-go/Godeps/_workspace/src/github.com/julienschmidt/httprouter"
 	"net/http"
 	"os"
 )
 
+type (
+	Quote struct {
+		Quote string `json:"quote"`
+		Id    string `json:"id"`
+	}
+)
+
 func main() {
-	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/", HelloHandler)
-	router.HandleFunc("/quote", QuoteHandler)
+	router := httprouter.New()
+	router.GET("/", HelloHandler)
+	router.GET("/quote", QuoteHandler)
 	fmt.Println("listening...")
 
 	http.Handle("/", router)
@@ -20,10 +28,21 @@ func main() {
 	}
 }
 
-func HelloHandler(res http.ResponseWriter, req *http.Request) {
+func HelloHandler(res http.ResponseWriter, req *http.Request, p httprouter.Params) {
 	fmt.Fprintln(res, "go: HelloHandler: hello, world!!!")
 }
 
-func QuoteHandler(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprintln(res, "hey this is a private residence man!")
+func QuoteHandler(res http.ResponseWriter, req *http.Request, p httprouter.Params) {
+	// Stub an example quote
+	q := Quote{
+		Quote: "hey this is a private residence man!",
+		Id:    p.ByName("id"),
+	}
+
+	qj, _ := json.Marshal(q)
+
+	// Write content-type, statuscode, payload
+	res.Header().Set("Content-Type", "application/json")
+	res.WriteHeader(200)
+	fmt.Fprintf(res, "%s", qj)
 }
