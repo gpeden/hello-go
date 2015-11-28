@@ -1,14 +1,20 @@
 package main
 
 import (
+    "fmt"
     "net/http"
+    "os"
 )
 
-func response(rw http.ResponseWriter, request *http.Request) {
-    rw.Write([]byte("Go: Hello world!!!"))
+func main() {
+    http.HandleFunc("/", hello)
+    fmt.Println("listening...")
+    err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+    if err != nil {
+      panic(err)
+    }
 }
 
-func main() {
-    http.HandleFunc("/", response)
-    http.ListenAndServe(":3000", nil)
+func hello(res http.ResponseWriter, req *http.Request) {
+    fmt.Fprintln(res, "go: hello, world!!!")
 }
