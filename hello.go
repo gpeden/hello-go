@@ -4,13 +4,16 @@ import (
     "fmt"
     "net/http"
     "os"
+    "github.com/gorilla/mux"
 )
 
 func main() {
-    router := http.NewServeMux()
+    router := mux.NewRouter().StrictSlash(true)
     router.HandleFunc("/", HelloHandler)
     router.HandleFunc("/quote", QuoteHandler)
     fmt.Println("listening...")
+
+    http.Handle("/", router)
     err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
     if err != nil {
       panic(err)
