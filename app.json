@@ -1,0 +1,14 @@
+{
+  "name": "hello-go",
+  "description": "Go Hello World",
+  "keywords": [
+    "hello-g-",
+    "go",
+    "sample",
+    "example"
+  ],
+  "image": "heroku/go:1.5",
+  "mount_dir": "src/github.com/gpeden/hello-go",
+  "website": "http://github.com/gpeden/hello-go",
+  "repository": "http://github.com/gpeden/hello-go"
+}
