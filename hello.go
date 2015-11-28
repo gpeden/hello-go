@@ -4,11 +4,10 @@ import (
     "fmt"
     "net/http"
     "os"
-    "github.com/gorilla/mux"
 )
 
 func main() {
-    router := mux.NewRouter().StrictSlash(true)
+    router := http.NewServeMux()
     router.HandleFunc("/", HelloHandler)
     router.HandleFunc("/quote", QuoteHandler)
     fmt.Println("listening...")
