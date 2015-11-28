@@ -2,8 +2,6 @@ package main
 
 import (
     "fmt"
-    "html"
-    "log"
     "net/http"
     "os"
     "github.com/gorilla/mux"
@@ -11,8 +9,8 @@ import (
 
 func main() {
     router := mux.NewRouter().StrictSlash(true)
-    router.HandleFunc("/", hello)
-    router.HandleFunc("/quote", quote)
+    router.HandleFunc("/", HelloHandler)
+    router.HandleFunc("/quote", QuoteHandler)
     fmt.Println("listening...")
     err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
     if err != nil {
@@ -20,10 +18,10 @@ func main() {
     }
 }
 
-func hello(res http.ResponseWriter, req *http.Request) {
-    fmt.Fprintln(res, "go: hello, world!!!")
+func HelloHandler(res http.ResponseWriter, req *http.Request) {
+    fmt.Fprintln(res, "go: HelloHandler: hello, world!!!")
 }
 
-func quote(res http.ResponseWriter, req *http.Request) {
+func QuoteHandler(res http.ResponseWriter, req *http.Request) {
     fmt.Fprintln(res, "hey this is a private residence man!")
 }
