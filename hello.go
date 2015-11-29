@@ -11,20 +11,21 @@ import (
 
 
 var quotes = []Quote{
-    {Quote: "Just one thing, Dude. Do ya have to use so many cuss words?"},
-    {Quote: "Hello. Mein dizbatcher says zere iss somezing wrong mit deine kable."},
-    {Quote: "Vee vant zat money, Lebowski."},
-    {Quote: "Uh, yeah. Probably a vagrant, slept in the car. Or perhaps just used it as a toilet and moved on."},
-    {Quote: "Your name is Lebowski, Lebowski. Your wife is Bunny."},
-    {Quote: "You are joking. But perhaps you are right."},
-    {Quote: "I'm staying. I'm finishing my coffee. Enjoying my coffee."},
-    {Quote: "Tomorrow vee come back and cut off your Johnson."},
-    {Quote: "Has the whole world gone CRAZY?! Am I the only one who gives a shit about the rules?! MARK IT ZERO!"},
+    {Quote: "Just one thing, Dude. Do ya have to use so many cuss words?", Id: "0"},
+    {Quote: "Hello. Mein dizbatcher says zere iss somezing wrong mit deine kable.", Id: "1"},
+    {Quote: "Vee vant zat money, Lebowski.", Id: "2"},
+    {Quote: "Uh, yeah. Probably a vagrant, slept in the car. Or perhaps just used it as a toilet and moved on.", Id: "3"},
+    {Quote: "Your name is Lebowski, Lebowski. Your wife is Bunny.", Id: "4"},
+    {Quote: "You are joking. But perhaps you are right.", Id: "5"},
+    {Quote: "I'm staying. I'm finishing my coffee. Enjoying my coffee.", Id: "6"},
+    {Quote: "Tomorrow vee come back and cut off your Johnson.", Id: "7"},
+    {Quote: "Has the whole world gone CRAZY?! Am I the only one who gives a shit about the rules?! MARK IT ZERO!", Id: "8"},
 
 }
 
 func main() {
-
+  // Initialize quote DB
+  fmt.Println("Initialize quotes")
 
 	router := httprouter.New()
 	router.GET("/", HelloHandler)
@@ -48,7 +49,7 @@ func HelloHandler(res http.ResponseWriter, req *http.Request, p httprouter.Param
 func QuoteHandler(res http.ResponseWriter, req *http.Request, p httprouter.Params) {
 	// This id business seems a little hacky
   id, _ := strconv.Atoi(p.ByName("id"))
-	q := quotes[id - 1]
+	q := quotes[id]
 
   // Set the ID in the return object
   q.Id = p.ByName("id")
